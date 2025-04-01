@@ -7,7 +7,7 @@ router.get('/details',auth.authenticateToken,(req,res)=>{
     var categoryCount;
     var productCount;
     var billCount;
-    var query = "SELECT COUNT(id) as categoryCount FROM product";
+    var query = "SELECT COUNT(id) as categoryCount FROM category";
     connection.query(query,(err, result) => {
         if (!err){
             categoryCount = result[0].categoryCount;
@@ -15,7 +15,7 @@ router.get('/details',auth.authenticateToken,(req,res)=>{
             return res.status(500).json({ message: 'Database error', error: err });
         }
     });
-    var query = "SELECT COUNT(id) as productCount FROM item";
+    var query = "SELECT COUNT(id) as productCount FROM product";
     connection.query(query,(err, result) => {
         if (!err){
             productCount = result[0].productCount;
@@ -28,7 +28,7 @@ router.get('/details',auth.authenticateToken,(req,res)=>{
         if (!err){
             billCount = result[0].billCount;
             var data={
-                categoryt: categoryCount,
+                category: categoryCount,
                 product: productCount,
                 bill: billCount
             };

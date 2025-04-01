@@ -89,4 +89,31 @@ router.get('/checkToken',auth.authenticateToken,(req,res)=>{
     return  res.status(200).json({message:"true"});
 })
 
+router.post('/changePassword',auth.authenticateToken,(req,res)=>{
+    const user=req.body;
+    const email=res.locals.email;
+    var query="select *from user where email=?";
+    connection.query(query,[email,user.oldPassword],(err, result) => {
+        if (!err){
+            if(result.length <= 0){
+                return res.status(500).json({ message: 'Invalid credentials' });
+            }
+            else if(result[0].password==user.oldPassword){
+                query="update user set password=? where email=?";
+                connection.query(query,[user.newPassword,email],(err, result) => {
+                    if (!err){
+                        return res.status(200).json({ message: 'Password updated successfully' });
+                    }else{
+                        return res.status(500).json({ message: 'Database error', error: err });
+                    }
+                });
+            }else{
+                return res.status(400).json({ message: 'Something  went wrong. Try again' });
+            }
+        }else{
+            return res.status(500).json({ message: 'Database error', error: err });
+        }
+    });
+});
+
 module.exports = router;
