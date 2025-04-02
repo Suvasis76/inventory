@@ -39,7 +39,7 @@ export class ManageOrderComponent implements OnInit {
       name:[null,[Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
       email:[null,[Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
       contactNumber:[null,[Validators.required, Validators.pattern(GlobalConstants.contactNumberRegex)]],
-      payment:[null,[Validators.required]],
+      paymentMethod:[null,[Validators.required]],
       product:[null,[Validators.required]],
       category:[null,[Validators.required]],
       quantity:[null,[Validators.required]],
@@ -81,14 +81,7 @@ export class ManageOrderComponent implements OnInit {
   }
 
   getProductDetails(value:any){
-    if (!value || !value.id) {
-      console.log("Invalid value received:", value);
-      return;
-  }
-
-  console.log("Fetching product details for ID:", value.id);
     this.productService.getById(value.id).subscribe((response:any)=>{
-      console.log("response : ",response);
       this.price=response.price;
       this.manageOrderForm.controls['price'].setValue(response.price);
       this.manageOrderForm.controls['quantity'].setValue('1');
@@ -135,8 +128,8 @@ export class ManageOrderComponent implements OnInit {
     var formData=this.manageOrderForm.value;
     var productName=this.dataSource.find((e:{id:number})=>e.id ==formData.product.id);
     if(productName === undefined){
-      this.totalAmount = this.totalAmount * formData.total;
-      this.dataSource.push({id:formData.product.id,name:formData.prouct.name,category:formData.category.name,quantity:formData.quantity,price:formData.price,total:formData.total});
+      this.totalAmount = this.totalAmount + formData.total; 
+      this.dataSource.push({id:formData.product.id,name:formData.product.name,category:formData.category.name,quantity:formData.quantity,price:formData.price,total:formData.total});
       this.dataSource = [...this.dataSource];
       this.snackbarService.openSnackbar(GlobalConstants.productAdded,"success")
     }else{
@@ -144,7 +137,7 @@ export class ManageOrderComponent implements OnInit {
     }
   }
 
-  handleDelete(value:any,element:any){
+  handleDeleteAction(value:any,element:any){
     this.totalAmount=this.totalAmount-element.total;
     this.dataSource.splice(value,1);
     this.dataSource =[...this.dataSource];
@@ -161,6 +154,7 @@ export class ManageOrderComponent implements OnInit {
       totalAmount:this.totalAmount,
       productDetails:JSON.stringify(this.dataSource)
     }
+    console.log(data)
     this.billService.generateReport(data).subscribe((response:any)=>{
       this.downloadFile(response?.uuid);
       this.manageOrderForm.reset();
