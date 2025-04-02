@@ -50,11 +50,8 @@ export class ProductComponent implements OnInit {
 
   getCategorys(){
     this.categoryService.getCategorys().subscribe((response:any)=>{
-      console.log("Fetched categories:", response); // Debugging line
       this.categorys=response;
-      console.log("Categories array after assignment:", this.categorys);  // Debugging line
     },(error:any)=>{
-      console.log("Error fetching categories:", error); // Debugging line
       if(error.error?.message){
         this.responseMessage=error.error?.message;
       }else{
