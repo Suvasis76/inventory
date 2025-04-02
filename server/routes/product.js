@@ -5,11 +5,11 @@ const auth =  require('../services/authentication');
 const checkRole =require('../services/checkRole');
 
 router.post('/add',auth.authenticateToken,checkRole.checkRole,(req, res) => {
-    let item=req.body;
-    query = 'INSERT INTO product (name,productId,description, price,status) VALUES(?,?,?,?,"1")';
-    connection.query(query,[product.name, product.itemId, product.description, product.price],(err, result) => {
+    let product=req.body;
+    query = 'INSERT INTO product (name,categoryId,description, price,status) VALUES(?,?,?,?,"1")';
+    connection.query(query,[product.name, product.categoryId, product.description, product.price],(err, result) => {
         if(err) throw err;
-        res.send('Product added successfully');
+        res.json({message:'Product added successfully'});
     });
 });
 
@@ -24,12 +24,12 @@ router.get('/get',auth.authenticateToken,checkRole.checkRole,(req, res) => {
     });
 });
 
-router.get('/getByProduct/:id',auth.authenticateToken,checkRole.checkRole,(req,res,next)=>{
+router.get('/getByCategory/:id',auth.authenticateToken,checkRole.checkRole,(req,res,next)=>{
     const id=req.params.id;
-    query ="select id,name from product where productId =? and status = '1'";
+    query ="select id,name from product where categoryId =? and status = '1'";
     connection.query(query,[id],(err, result) => {
         if (!err){
-            res.json(result)
+            res.json(result);
         } else{
             res.status(500).json({ message: 'Database error', error: err });
         }
@@ -49,14 +49,14 @@ router.get('/getById/:id',auth.authenticateToken,(req,res,next)=>{
 });
 
 router.patch('/update',auth.authenticateToken,checkRole.checkRole,(req,res,next)=>{
-    let item=req.body;
-    var query="UPDATE item SET name=?, productId=?, description=?, price=? WHERE id=?";
-    connection.query(query,[product.name, product.itemId, product.description, product.price, product.id],(err,result) => {
+    let product=req.body;
+    var query="UPDATE product SET name=?, categoryId=?, description=?, price=? WHERE id=?";
+    connection.query(query,[product.name, product.categoryId, product.description, product.price, product.id],(err,result) => {
         if (!err){
             if(result.affectedRows==0){
                 return res.status(404).json({ message: 'Product not found' });
             }
-            return res.send('Product updated successfully');
+            return res.json({message:'Product updated successfully'});
         } else{
             res.status(500).json({ message: 'Database error', error: err });
         }
@@ -71,7 +71,7 @@ router.delete('/delete/:id',auth.authenticateToken,checkRole.checkRole,(req,res,
             if(result.affectedRows==0){
                 return res.status(404).json({ message: 'Product not found' });
             }
-            return res.send('Product deleted successfully');
+            return res.json({message:'Product deleted successfully'});
         } else{
             res.status(500).json({ message: 'Database error', error: err });
         }
@@ -86,7 +86,7 @@ router.patch('/updateStatus',auth.authenticateToken,checkRole.checkRole,(req,res
             if(result.affectedRows==0){
                 return res.status(404).json({ message: 'Product not found' });
             }
-            res.send('Product status updated successfully');
+            res.json({message:'Product status updated successfully'});
         } else{
             res.status(500).json({ message: 'Database error', error: err });
         }

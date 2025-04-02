@@ -11,16 +11,16 @@ CREATE TABLE user (
 
 insert into user(name, contactNumber, email, password, status, role) values('Admin', '1234567890', 'admin@gmail.com', 'admin', 1, 'admin');
 
-CREATE TABLE product (
+CREATE TABLE category (
     id INT  not NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     PRIMARY KEY (id)
 );
 
-create table item(
+create table product(
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR (255) NOT NULL,
-    itemId INT,
+    categoryId INT,
     description VARCHAR(255),
     price integer,
     status VARCHAR(20)

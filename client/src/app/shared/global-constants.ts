@@ -1,9 +1,13 @@
 import { variable } from "@angular/compiler/src/output/output_ast";
 
 export class GlobalConstants{
-    public static genericError : String = "Something went wrong. Please try again";
+    public static genericError : string = "Something went wrong. Please try again";
 
     public static unauthorized: string = "You are not authorized to access this page";
+
+    public static productExistError: string = "Product already exists";
+
+    public static productAdded: string = "Product added successfully";
 
     public static nameRegex:string = "[a-zA-Z0-9 ]*";
 
