@@ -38,9 +38,10 @@
                 <mat-form-field appearance="fill" fxFlex>
                     <mat-label>Payment Method</mat-label>
                     <mat-select matInput formControlName="paymentMethod" required>
-                        <mat-option value="cash">Cash</mat-option>
-                        <mat-option value="creditCard">Credit Card</mat-option>
-                        <mat-option value="debitCard">Debit Card</mat-option>
+                        <mat-option value="Cash">Cash</mat-option>
+                        <mat-option value="Upi">Upi</mat-option>
+                        <mat-option value="Credit Card">Credit Card</mat-option>
+                        <mat-option value="Debit Card">Debit Card</mat-option>
                     </mat-select>
                     <!-- <mat-error *ngIf="manageOrderForm.controls.paymentMethod.touched && manageOrderForm.controls.paymentMethod.invalid">
                         <span *ngIf="manageOrderForm.controls.paymentMethod.errors.required">This field is mandatory</span>
