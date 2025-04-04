@@ -6,12 +6,12 @@ import { FullComponent } from './layouts/full/full.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   {
-    path: 'cafe',
+    path: 'inventory',
     component: FullComponent,
     children: [
       {
         path: '',
-        redirectTo: '/cafe/dashboard',
+        redirectTo: '/inventory/dashboard',
         pathMatch: 'full',
       },
       {

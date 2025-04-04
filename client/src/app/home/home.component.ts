@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('token') !== null) {
       this.userServices.checkToken().subscribe((response:any) => {
-        this.router.navigate(['/cafe/dashboard']);
+        this.router.navigate(['/inventory/dashboard']);
       },(error)=>{
         console.log(error);
       })

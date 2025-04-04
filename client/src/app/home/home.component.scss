@@ -20,6 +20,7 @@ body {
 .navbar {
   display: flex;
   background-color: #333;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 /* Style the navigation bar links */
@@ -112,11 +113,13 @@ body {
   align-items: center;
   justify-content:center;
   background-color: #e53935;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 nav {
   display: flex;
   width: 90%;
+  
 }
 
 ul li a {
@@ -219,22 +222,23 @@ a:hover::after {
 .mat-icon {
   vertical-align: middle;
 }
-.bg-image {
-  /* The image used */
-  background-image: url("../../assets/img/food1.jpg");
+// .bg-image {
+//   /* The image used */
+//   background-image: url("../../assets/img/food1.jpg");
+
   
-  /* Add the blur effect */
-  filter: blur(3px);
-  -webkit-filter: blur(3px);
+//   /* Add the blur effect */
+//   filter: blur(3px);
+//   -webkit-filter: blur(3px);
   
-  /* Full height */
-  height: 100%; 
+//   /* Full height */
+//   height: 100%; 
   
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+//   /* Center and scale the image nicely */
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// }
 
 /* Position text in the middle of the page/image */
 .bg-text {
